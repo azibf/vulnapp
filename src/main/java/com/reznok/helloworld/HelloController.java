@@ -15,6 +15,11 @@ public class HelloController {
         return "hello";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     @PostMapping("/greeting")
     public String greetingSubmit(@ModelAttribute Greeting greeting, Model model) {
         return "hello";
