@@ -1,4 +1,4 @@
-package com.reznok.helloworld;
+package com.azibf.helloworld;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,4 +1,4 @@
-package com.reznok.helloworld;
+package com.azibf.helloworld;
 
 public class Greeting {
 
