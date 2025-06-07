@@ -24,9 +24,14 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login() {
-        logger.info("login attempt from user " + "");
+    public String login(Model model) {
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String doLogin(@ModelAttribute User user) {
+        logger.info("login attempt from user " + user.getUsername());
+        return "redirect:/promotion/list";
     }
 
     @GetMapping("/reset-password")
