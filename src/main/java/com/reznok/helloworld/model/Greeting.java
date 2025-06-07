@@ -1,4 +1,4 @@
-package com.reznok.helloworld;
+package com.reznok.helloworld.model;
 
 public class Greeting {
 

@@ -1,0 +1,211 @@
+:root {
+    --trust-blue: #1e3a8a;       /* Глубокий синий - основа доверия */
+    --confidence-blue: #3b82f6;  /* Яркий акцентный синий */
+    --warm-orange: #f97316;      /* Теплый оранжевый - энергия и дружелюбие */
+    --soft-orange: #fed7aa;      /* Светлый оранжевый для фонов */
+    --neutral-white: #f8fafc;    /* Чистый белый */
+    --dark-text: #1e293b;        /* Темный текст для контраста */
+    --light-gray: #e2e8f0;       /* Светло-серый для границ */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, var(--neutral-white) 0%, var(--soft-orange) 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    line-height: 1.6;
+    color: var(--dark-text);
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(30, 58, 138, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+}
+
+header {
+    background: var(--trust-blue);
+    color: white;
+    padding: 25px;
+    text-align: center;
+    position: relative;
+}
+
+header::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    background: var(--trust-blue);
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
+h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+.content {
+    padding: 35px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--trust-blue);
+    font-size: 1.05rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid var(--light-gray);
+    border-radius: 10px;
+    font-size: 1.05rem;
+    transition: all 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--confidence-blue);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--warm-orange);
+    color: white;
+    box-shadow: 0 4px 6px rgba(249, 115, 22, 0.2);
+}
+
+.btn-primary:hover {
+    background: #ea580c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(249, 115, 22, 0.3);
+}
+
+.btn-secondary {
+    background: var(--confidence-blue);
+    color: white;
+    margin-top: 15px;
+}
+
+.btn-secondary:hover {
+    background: #2563eb;
+}
+
+.message {
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    text-align: center;
+    font-weight: 500;
+}
+
+.message-info {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--confidence-blue);
+    border: 1px solid var(--confidence-blue);
+}
+
+.security-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+
+.security-badge::before {
+    content: "🔒";
+    font-size: 1.2rem;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #64748b;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--light-gray);
+    background: rgba(241, 245, 249, 0.5);
+}
+
+/* Специфичные стили для страниц */
+.login-form {
+    margin-top: 30px;
+}
+
+.role-selection {
+    display: flex;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+.role-option {
+    flex: 1;
+    border: 2px solid var(--light-gray);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.role-option.selected {
+    border-color: var(--confidence-blue);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.role-option input {
+    display: none;
+}

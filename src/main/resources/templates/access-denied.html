@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Доступ ограничен</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .access-denied {
+        text-align: center;
+        padding: 30px 0;
+    }
+
+    .denied-icon {
+        font-size: 5rem;
+        color: var(--warm-orange);
+        margin: 20px 0;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .permission-hint {
+        background: rgba(249, 115, 22, 0.05);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 30px 0;
+        text-align: left;
+        border-left: 4px solid var(--warm-orange);
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Доступ ограничен</h1>
+    <p class="subtitle">Требуются дополнительные права</p>
+  </header>
+
+  <div class="content access-denied">
+    <div class="denied-icon">🚫</div>
+    <h2 style="color: var(--trust-blue); margin-bottom: 15px;">403 - Доступ запрещен</h2>
+
+    <p style="font-size: 1.2rem; margin-bottom: 20px;">
+      У вашей учетной записи недостаточно прав<br>
+      для просмотра этого содержимого.
+    </p>
+
+    <div class="permission-hint">
+      <h3 style="color: var(--warm-orange); margin-bottom: 10px;">Как получить доступ?</h3>
+      <ul style="padding-left: 20px; margin-top: 10px;">
+        <li>Обратитесь к администратору системы</li>
+        <li>Убедитесь, что вошли под правильной учетной записью</li>
+        <li>Проверьте свои права доступа в профиле</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Ваш Бонус</p>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ошибка в системе</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .error-code {
+        font-size: 6rem;
+        font-weight: 700;
+        color: var(--trust-blue);
+        margin: 20px 0;
+        text-shadow: 3px 3px 0 rgba(30, 58, 138, 0.1);
+    }
+
+    .error-illustration {
+        max-width: 250px;
+        margin: 30px auto;
+        opacity: 0.9;
+    }
+
+    .support-contact {
+        background: rgba(59, 130, 246, 0.05);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 25px 0;
+        border-left: 4px solid var(--confidence-blue);
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Произошла ошибка</h1>
+    <p class="subtitle">Мы уже работаем над решением</p>
+  </header>
+
+  <div class="content" style="text-align: center;">
+    <div class="error-illustration">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="90" fill="#fed7aa" opacity="0.8"/>
+        <path d="M80,50 L120,50 L140,90 L140,150 L60,150 L60,90 Z" fill="white" stroke="#1e3a8a" stroke-width="3"/>
+        <circle cx="100" cy="70" r="15" fill="#f97316"/>
+        <rect x="75" y="110" width="50" height="10" rx="5" fill="#3b82f6"/>
+        <rect x="75" y="130" width="50" height="10" rx="5" fill="#3b82f6"/>
+        <path d="M40,40 L50,30 M160,40 L150,30" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+
+
+    <p style="font-size: 1.2rem; margin-bottom: 25px;">
+      При обработке вашего запроса возникла непредвиденная ошибка.<br>
+      Наша команда уже уведомлена и решает проблему.
+    </p>
+
+    <div class="support-contact">
+      <h3 style="color: var(--trust-blue); margin-bottom: 10px;">Нужна срочная помощь?</h3>
+      <p>Техподдержка: <strong>support@company.com</strong></p>
+      <p>Телефон: <strong>+7 (800) 123-45-67</strong></p>
+    </div>
+
+
+  <footer>
+    <p>© 2025 Ваш Бонус.</p>
+  </footer>
+</div>
+</body>
+</html>

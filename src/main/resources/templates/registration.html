@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register New User (Admin Only)</title>
+</head>
+<body>
+<h1>Register New User</h1>
+<p>Only administrators can access this page</p>
+
+<form action="/registration" method="post">
+    <input type="text" name="username" placeholder="Username" required><br>
+    <input type="password" name="password" placeholder="Password" required><br>
+    <input type="email" name="email" placeholder="Email" required><br>
+
+    <label>Roles:</label><br>
+    <input type="checkbox" name="roles" value="USER"> User<br>
+    <input type="checkbox" name="roles" value="ADMIN"> Admin<br>
+
+    <button type="submit">Register</button>
+</form>
+</body>
+</html>
