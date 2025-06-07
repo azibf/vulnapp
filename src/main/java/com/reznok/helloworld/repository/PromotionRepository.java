@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import java.util.*;
 
+@Repository
 public interface PromotionRepository extends JpaRepository<Promotion, Long> {
     List<Promotion> findAll();
     Optional<Promotion> findById(Long id);

@@ -1,10 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Акционные предложения | VulnApp</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .promotion-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(30, 58, 138, 0.05);
+            border-left: 4px solid var(--warm-orange);
+        }
+
+        .promotion-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .search-box {
+            margin-bottom: 25px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<p>promotion-list</p>
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-brand">
+            <svg class="gift-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 12V22H4V12M22 7H2V12H22V7ZM12 22V7M12 7H7.5C6.83696 7 6.20107 6.73661 5.73223 6.26777C5.26339 5.79893 5 5.16304 5 4.5C5 3.83696 5.26339 3.20107 5.73223 2.73223C6.20107 2.26339 6.83696 2 7.5 2C11 2 12 7 12 7ZM12 7H16.5C17.163 7 17.7989 6.73661 18.2678 6.26777C18.7366 5.79893 19 5.16304 19 4.5C19 3.83696 18.7366 3.20107 18.2678 2.73223C17.7989 2.26339 17.163 2 16.5 2C13 2 12 7 12 7Z"
+                      stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <div class="navbar-user-section">
+            <div class="navbar-actions">
+                <a th:href="@{/promotions}" class="nav-btn">Список предложений</a>
+
+                <!-- Для обычных пользователей -->
+                <a th:if="${#authorization.expression('hasRole(''USER'')')}"
+                   th:href="@{/feedback/new}" class="nav-btn">Оставить отзыв</a>
+
+                <!-- Для администраторов -->
+                <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                   th:href="@{/feedback/list}" class="nav-btn">Просмотреть отзывы</a>
+
+                <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                   th:href="@{/admin/create-user}" class="nav-btn">Создать пользователя</a>
+            </div>
+
+            <div class="user-info">
+                <span th:text="${#authentication.principal.username}"></span>
+                <form th:action="@{/logout}" method="post" style="margin: 0;">
+                    <button type="submit" class="nav-btn logout">Выйти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="main-content-wrapper">
+    <div class="container">
+        <div class="content">
+            <h2>Акционные предложения</h2>
+
+            <div class="search-box">
+                <form th:action="@{/promotions/list}" method="GET">
+                    <input type="text" name="query" placeholder="Поиск акций..." class="form-control">
+                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Найти</button>
+                </form>
+            </div>
+
+            <a th:href="@{/promotion/new}" class="btn btn-primary" style="margin-bottom: 20px;">+ Создать новую акцию</a>
+
+            <div th:each="promotion : ${promotions}" class="promotion-card">
+                <img th:if="${promotion.image != null}"
+                     th:src="'data:image/jpeg;base64,' + ${T(org.apache.commons.codec.binary.Base64).encodeBase64String(promotion.image)}"
+                     class="promotion-image">
+                <h3 th:text="${promotion.title}"></h3>
+                <p th:text="${promotion.description}"></p>
+                <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/promotion/${promotion.id}/delete}" class="btn btn-secondary">Удалить</a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

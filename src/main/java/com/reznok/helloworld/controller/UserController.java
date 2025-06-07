@@ -4,10 +4,12 @@ import com.reznok.helloworld.model.User;
 import com.reznok.helloworld.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.ui.Model;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 
@@ -39,13 +41,15 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/registration")
-    public String showRegistration() {
+    public String showRegistration(Model model) {
+        model.addAttribute("user", new User());
         return "registration";
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/registration")
-    public String submitRegistration() {
+    public String submitRegistration(@ModelAttribute User user) {
+        userService.registerUser(user);
         return "redirect:/promotion/list";
     }
 }

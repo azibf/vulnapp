@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы пользователей | VulnApp</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<p>feedback-list</p>
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-brand">
+            <svg class="gift-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 12V22H4V12M22 7H2V12H22V7ZM12 22V7M12 7H7.5C6.83696 7 6.20107 6.73661 5.73223 6.26777C5.26339 5.79893 5 5.16304 5 4.5C5 3.83696 5.26339 3.20107 5.73223 2.73223C6.20107 2.26339 6.83696 2 7.5 2C11 2 12 7 12 7ZM12 7H16.5C17.163 7 17.7989 6.73661 18.2678 6.26777C18.7366 5.79893 19 5.16304 19 4.5C19 3.83696 18.7366 3.20107 18.2678 2.73223C17.7989 2.26339 17.163 2 16.5 2C13 2 12 7 12 7Z"
+                      stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <div class="navbar-user-section">
+            <div class="navbar-actions">
+                <a th:href="@{/promotions}" class="nav-btn">Список предложений</a>
+
+                <!-- Для обычных пользователей -->
+                <a th:if="${#authorization.expression('hasRole(''USER'')')}"
+                   th:href="@{/feedback/new}" class="nav-btn">Оставить отзыв</a>
+
+                <!-- Для администраторов -->
+                <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                   th:href="@{/feedback/list}" class="nav-btn">Просмотреть отзывы</a>
+
+                <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                   th:href="@{/admin/create-user}" class="nav-btn">Создать пользователя</a>
+            </div>
+
+            <div class="user-info">
+                <span th:text="${#authentication.principal.username}"></span>
+                <form th:action="@{/logout}" method="post" style="margin: 0;">
+                    <button type="submit" class="nav-btn logout">Выйти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <header>
+        <h1>Отзывы пользователей</h1>
+        <p class="subtitle">Мнения и предложения наших пользователей</p>
+    </header>
+
+    <div class="content">
+        <div th:each="feedback : ${feedbacks}" class="feedback-card">
+            <div class="feedback-header">
+                <div class="user-meta">
+                        <h3 style="margin: 0;" th:text="${feedback.user.username}"></h3>
+                </div>
+            </div>
+
+            <div class="feedback-message"><p>${feedback.message}</p></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Ваш Бонус.</p>
+    </footer>
+</div>
 </body>
 </html>

@@ -1,10 +1,143 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать акцию</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .promotion-form {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.08);
+        }
+
+        .image-preview {
+            min-height: 200px;
+            resize: vertical;
+            width: 100%;
+            border: 2px dashed var(--light-gray);
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--confidence-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<p>promotion-form</p>
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-brand">
+            <svg class="gift-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 12V22H4V12M22 7H2V12H22V7ZM12 22V7M12 7H7.5C6.83696 7 6.20107 6.73661 5.73223 6.26777C5.26339 5.79893 5 5.16304 5 4.5C5 3.83696 5.26339 3.20107 5.73223 2.73223C6.20107 2.26339 6.83696 2 7.5 2C11 2 12 7 12 7ZM12 7H16.5C17.163 7 17.7989 6.73661 18.2678 6.26777C18.7366 5.79893 19 5.16304 19 4.5C19 3.83696 18.7366 3.20107 18.2678 2.73223C17.7989 2.26339 17.163 2 16.5 2C13 2 12 7 12 7Z"
+                      stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <div class="navbar-user-section">
+            <div class="navbar-actions">
+                <a th:href="@{/promotions}" class="nav-btn">Список предложений</a>
+
+                <!-- Для обычных пользователей -->
+                <a th:if="${#authorization.expression('hasRole(''USER'')')}"
+                   th:href="@{/feedback/new}" class="nav-btn">Оставить отзыв</a>
+
+                <!-- Для администраторов -->
+                <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                   th:href="@{/feedback/list}" class="nav-btn">Просмотреть отзывы</a>
+
+                <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                   th:href="@{/admin/create-user}" class="nav-btn">Создать пользователя</a>
+            </div>
+
+            <div class="user-info">
+                <span th:text="${#authentication.principal.username}"></span>
+                <form th:action="@{/logout}" method="post" style="margin: 0;">
+                    <button type="submit" class="nav-btn logout">Выйти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="main-content-wrapper">
+    <div class="container">
+        <div class="content">
+            <h2>Создать акционное предложение</h2>
+
+            <form th:action="@{/promotion/new}" method="POST" class="promotion-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="title">Название акции:</label>
+                    <input type="text" id="title" name="title" required class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Описание:</label>
+                    <textarea id="description" name="description" required class="form-control" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Изображение:</label>
+                    <input type="file" id="image" name="image" required accept="image/*" onchange="previewImage(this)">
+
+                    <div class="image-preview">
+                        <span>Превью изображения</span>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">Создать</button>
+                    <a th:href="@{/promotion/list}" class="btn btn-secondary">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function previewImage(input) {
+        const preview = document.querySelector('.image-preview');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.innerHTML = `<img src="${e.target.result}" alt="Превью">`;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 </body>
 </html>

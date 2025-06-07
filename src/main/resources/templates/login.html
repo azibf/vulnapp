@@ -1,13 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--confidence-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<form action="/login" method="post">
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-</form>
+<div class="container">
+    <header>
+        <h1>Авторизация</h1>
+    </header>
+    <div class="content">
+        <form action="/login" method="post" class="feedback-form">
+        <div class="form-group">
+            <div>
+                <input type="text" name="username" placeholder="Имя пользователя" required>
+            </div>
+            <br>
+            <div>
+                <input type="password" name="password" placeholder="Пароль" required>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary">Войти</button>
+            <a th:href="@{/promotion/list}" class="btn btn-secondary">Сбросить пароль</a>
+        </div>
+    </form>
+    </div>
+</div>
 </body>
 </html>

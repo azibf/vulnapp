@@ -33,19 +33,6 @@ public class PromotionService {
         return promotionRepository.save(promotion);
     }
 
-    public void updatePromotion(Long id, Promotion promotionDetails, MultipartFile image) throws IOException {
-        Optional<Promotion> promotion = getPromotionById(id);
-        if (promotion.isPresent()) {
-            promotion.get().setTitle(promotionDetails.getTitle());
-            promotion.get().setDescription(promotionDetails.getDescription());
-
-            if (image != null && !image.isEmpty()) {
-                promotion.get().setImage(image.getBytes());
-            }
-            promotionRepository.save(promotion.get());
-        }
-    }
-
     public void deletePromotion(Long id) {
         promotionRepository.deleteById(id);
     }
