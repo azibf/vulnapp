@@ -4,12 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.web.SecurityFilterChain;
+
 @EnableWebSecurity // 1
 public class SecurityConfig extends WebSecurityConfigurerAdapter { // 2
-
-    @Autowired
-    private JwtTokenFilter jwtTokenFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -26,14 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // 2
 
         // Set permissions on endpoints. 7
         http.authorizeRequests()
-                // Our public endpoints
-                .antMatchers("/login", "/refresh-token").permitAll()
-                // Our private endpoints
+                .antMatchers("/login").permitAll()
                 .anyRequest().authenticated();
 
         // Add JWT token filter. 8
-        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-    }
+        }
 
     // Used by spring security if CORS is enabled. 3
     @Bean
